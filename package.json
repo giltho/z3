@@ -1,0 +1,26 @@
+{
+  "name": "z3",
+  "version": "4.8.4",
+  "description": "z3 packaged for esy",
+  "esy": {
+    "build": [
+      "python2.7 scripts/mk_make.py --prefix=#{self.install} --ml --staticlib",
+      "make -C build",
+      "sh -c \"cp build/libz3* build/api/ml/\""
+    ],
+    "install": [
+      "sh -c \"ocamlfind install z3 build/api/ml/META -nodll build/api/ml/*\""
+    ],
+    "buildsInSource": true,
+    "exportedEnv": {
+      "LD_LIBRARY_PATH": {
+        "scope": "global",
+        "val": "#{self.lib: $LD_LIBRARY_PATH}"
+      }
+    }
+  },
+  "dependencies": {
+    "@opam/num": "*",
+    "ocaml": ">=4.3.0"
+  }
+}
